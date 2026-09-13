@@ -1,0 +1,1711 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Full Tigo · Oferta de septiembre</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700&display=swap">
+  <style>
+    /* =========================================================
+       Full Tigo — cartel de concierto, en azul Tigo.
+       Superficies planas; el movimiento lo pone la torre del hero.
+       Mobile-first.
+       ========================================================= */
+
+    :root {
+      /* El azul profundo hace de tinta; el cian es el unico acento y
+         se reserva para lo que debe ganar la mirada. */
+      --tinta:     #00104F;   /* texto, bandas, bordes, pildoras rellenas */
+      --papel:     #ffffff;
+      --ceniza:    #EEF2FA;   /* fondo suave de cartel */
+      --hormigon:  #D7E0F0;   /* filetes y divisorias */
+      --carbon:    #1A2B7A;   /* hover y superficie elevada */
+      --pizarra:   #55618A;   /* texto secundario sobre blanco */
+      --piedra:    #93A3CC;   /* texto terciario, sobre todo en oscuro */
+      --senal:     #00C8FF;   /* unico acento del sistema */
+
+      --display: 'Anton', 'Arial Narrow', Impact, sans-serif;
+      --ui: 'Archivo', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+      --pill: 40px;
+      --r-card: 8px;
+      --ancho: 1200px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    /* SOLO aqui. Si html y body llevan overflow-x a la vez, body deja de
+       delegar en el viewport y saca su propia barra: salen dos. */
+    html { overflow-x: hidden; }
+    body {
+      margin: 0;
+      background: var(--papel);
+      color: var(--tinta);
+      font-family: var(--ui);
+      letter-spacing: 0.06em;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--tinta); text-decoration: none; }
+    a:hover { color: var(--carbon); }
+    img { max-width: 100%; }
+
+    /* el corte horizontal va en el body, no en un div: en un div,
+       overflow-x lo vuelve contenedor de scroll y saca una segunda
+       barra vertical junto a la de la pagina */
+    .page { width: 100%; }
+    .wrap { width: 100%; max-width: var(--ancho); margin: 0 auto; padding: 0 20px; }
+
+    /* ---------- tipografia ---------- */
+    .display {
+      font-family: var(--display);
+      font-size: clamp(54px, 13.5vw, 118px);
+      line-height: 0.83;
+      letter-spacing: 0.005em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .display--sm { font-size: clamp(40px, 9vw, 82px); }
+    .titulo {
+      font-size: clamp(22px, 3vw, 28px); font-weight: 700;
+      line-height: 1.22; letter-spacing: 0.06em; margin: 0 0 12px;
+    }
+    .cuerpo { font-size: 16px; line-height: 1.4; font-weight: 400; margin: 0; }
+    .apunte {
+      font-size: 12px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.14em; color: var(--pizarra);
+    }
+    .muted { color: var(--pizarra); }
+
+    /* ---------- botones: la pildora es el sistema ---------- */
+    .pill {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px; text-align: center;
+      border-radius: var(--pill); border: 1px solid var(--tinta);
+      background: var(--tinta); color: var(--papel);
+      font-family: var(--ui); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 14px 24px; min-height: 46px; cursor: pointer;
+    }
+    .pill:hover { background: var(--carbon); border-color: var(--carbon); color: var(--papel); }
+    .pill--out { background: transparent; color: var(--tinta); }
+    .pill--out:hover { background: var(--tinta); color: var(--papel); }
+    .pill--inv { background: var(--papel); color: var(--tinta); border-color: var(--papel); }
+    .pill--inv:hover { background: var(--hormigon); border-color: var(--hormigon); color: var(--tinta); }
+    .pill--ghost-inv { background: transparent; color: var(--papel); border-color: var(--papel); }
+    .pill--ghost-inv:hover { background: var(--papel); color: var(--tinta); }
+    .pill--lg { font-size: 14px; padding: 18px 30px; min-height: 56px; }
+
+    /* ---------- barra ---------- */
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 18px 0;
+      border-bottom: 1px solid var(--hormigon);
+    }
+    .marca { display: flex; align-items: center; gap: 10px; min-width: 0; }
+    .marca-cubo {
+      flex-shrink: 0; width: 34px; height: 34px; border-radius: 4px;
+      background: var(--tinta); color: var(--papel);
+      display: grid; place-items: center;
+      font-family: var(--display); font-size: 17px; letter-spacing: 0.02em;
+    }
+    .marca-txt { font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+    /* visible tambien en celular: se desliza si no cabe, en vez de
+       esconderse detras de un menu que nadie abre */
+    .nav-links {
+      display: flex; gap: 18px; align-items: center;
+      order: 3; width: 100%; padding-bottom: 2px;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .nav-links::-webkit-scrollbar { display: none; }
+    .nav-links a {
+      font-size: 13px; font-weight: 600; white-space: nowrap;
+      padding-bottom: 3px; border-bottom: 1px solid transparent;
+    }
+    .nav-links a:hover { border-bottom-color: var(--senal); }
+    .nav { flex-wrap: wrap; row-gap: 12px; }
+
+    /* ---------- hero ---------- */
+    .hero { padding: 40px 0 0; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; align-items: center; }
+    .hero .display { margin-bottom: 24px; }
+    .hero-sub {
+      font-size: 18px; line-height: 1.4; font-weight: 400;
+      color: var(--carbon); max-width: 40ch; margin: 0 0 28px;
+    }
+    .hero-cta { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    /* linea de titular enmascarada: el texto sube desde abajo */
+    .ln { display: block; overflow: hidden; }
+    .ln > span { display: block; }
+
+    /* ---------- precio de entrada y vigencia, en el hero ---------- */
+    .hero-desde {
+      display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 10px;
+      margin: 0 0 18px;
+    }
+    .hero-desde span {
+      font-size: 14px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--pizarra);
+    }
+    .hero-desde b {
+      font-family: var(--display); font-size: clamp(34px, 6.5vw, 46px);
+      line-height: 1; font-weight: 400;
+    }
+    .hero-desde em { font-style: normal; font-size: 15px; color: var(--pizarra); }
+
+    .vigencia {
+      display: inline-flex; align-items: center; flex-wrap: wrap; gap: 8px 12px;
+      border: 1px solid var(--hormigon); border-radius: 100px;
+      padding: 9px 18px; margin-bottom: 26px;
+      font-size: 13px; font-weight: 600;
+    }
+    .vigencia[hidden] { display: none; }
+    .vigencia .punto {
+      position: relative; flex-shrink: 0;
+      width: 7px; height: 7px; border-radius: 50%; background: var(--senal);
+    }
+    /* el halo se anima con transform y opacidad, no con box-shadow */
+    .vigencia .punto::after {
+      content: ""; position: absolute; inset: 0; border-radius: 50%;
+      background: rgba(0, 200, 255, 0.55);
+      animation: latir 2.4s ease-out infinite;
+      will-change: transform, opacity;
+    }
+    @keyframes latir {
+      0%   { transform: scale(1);   opacity: 0.75; }
+      70%  { transform: scale(3.6); opacity: 0; }
+      100% { transform: scale(3.6); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { .vigencia .punto::after { animation: none; } }
+    .vigencia b { font-variant-numeric: tabular-nums; }
+
+    /* ---------- verificador de cobertura ---------- */
+    .cobertura { padding: 52px 0; background: var(--ceniza); }
+    .cob-caja { max-width: 640px; }
+    .cob-form { display: flex; flex-direction: column; gap: 10px; margin-top: 22px; }
+
+    /* campo propio: el datalist nativo no se deja estilizar y rompe el
+       sistema, asi que las sugerencias las pintamos nosotros */
+    .cob-campo { position: relative; flex-grow: 1; min-width: 0; }
+    .cob-campo > svg {
+      position: absolute; left: 20px; top: 50%; transform: translateY(-50%);
+      color: var(--piedra); pointer-events: none;
+    }
+    .cob-form input {
+      width: 100%; -webkit-appearance: none; appearance: none;
+      font-family: var(--ui); font-size: 16px; letter-spacing: 0.04em;
+      color: var(--tinta); background: var(--papel);
+      border: 1px solid var(--hormigon); border-radius: var(--pill);
+      padding: 16px 20px 16px 50px; min-height: 56px;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+    .cob-form input::placeholder { color: var(--piedra); }
+    .cob-form input:focus {
+      outline: none; border-color: var(--tinta);
+      box-shadow: 0 0 0 3px rgba(0, 200, 255, 0.3);
+    }
+    .cob-form input::-webkit-calendar-picker-indicator { display: none; }
+
+    .cob-sug {
+      position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 20;
+      margin: 0; padding: 6px; list-style: none;
+      background: var(--papel); border: 1px solid var(--hormigon);
+      border-radius: 18px; box-shadow: 0 16px 34px rgba(0, 16, 79, 0.16);
+      max-height: 236px; overflow-y: auto;
+    }
+    .cob-sug[hidden] { display: none; }
+    .cob-sug li {
+      padding: 11px 14px; border-radius: 12px; cursor: pointer;
+      font-size: 15px; line-height: 1.2;
+    }
+    .cob-sug li:hover,
+    .cob-sug li[aria-selected="true"] { background: var(--tinta); color: var(--papel); }
+    .cob-sug mark { background: none; color: inherit; font-weight: 800; }
+
+    .cob-resp { margin-top: 16px; font-size: 16px; line-height: 1.45; }
+    .cob-resp:empty { display: none; }
+    .cob-resp .si, .cob-resp .no { font-weight: 700; display: block; margin-bottom: 4px; }
+    .cob-resp .si { color: var(--tinta); }
+    .cob-resp .no { color: var(--pizarra); }
+    .cob-resp a { text-decoration: underline; text-underline-offset: 3px; }
+
+    /* ---------- barra fija en celular ---------- */
+    .barra-movil {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+      display: flex; align-items: center; justify-content: space-between; gap: 14px;
+      padding: 11px 16px; padding-bottom: calc(11px + env(safe-area-inset-bottom, 0px));
+      /* fondo solido: un elemento fijo que desenfoque el fondo traba el scroll */
+      background: #00104F;
+      border-top: 1px solid rgba(0, 200, 255, 0.55);
+      color: var(--papel);
+      transform: translateY(115%);
+      transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform;
+    }
+    .barra-movil.se-ve { transform: none; }
+    .barra-movil .bm-txt { display: flex; flex-direction: column; line-height: 1.1; min-width: 0; }
+    .barra-movil .bm-txt span {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--piedra);
+    }
+    .barra-movil .bm-txt b {
+      font-family: var(--display); font-size: 26px;
+      letter-spacing: 0.01em; font-weight: 400;
+    }
+    .barra-movil .pill { flex-shrink: 0; }
+    @media (min-width: 720px) { .barra-movil { display: none; } }
+    /* aire al final para que la barra fija no se coma el pie */
+    @media (max-width: 719px) { .legal { padding-bottom: 104px; } }
+    @media (min-width: 560px) {
+      .cob-form { flex-direction: row; align-items: center; }
+      .cob-form .pill { flex-shrink: 0; }
+    }
+
+    /* ---------- torre: carrusel vertical del hero ----------
+       Dos copias del mismo juego de tarjetas desplazandose hacia arriba;
+       al llegar a la mitad vuelve a empezar y el salto no se ve. */
+    .torre {
+      position: relative; height: 440px; overflow: hidden;
+      border-radius: 18px;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 11%, #000 89%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0, #000 11%, #000 89%, transparent 100%);
+    }
+    /* absoluta para que no empuje la altura: asi la columna puede
+       estirarse a la del texto sin que la pista mande */
+    .torre-pista {
+      position: absolute; top: 0; left: 0; right: 0;
+      display: flex; flex-direction: column; gap: 14px;
+      animation: subir 44s linear infinite;
+      will-change: transform;
+    }
+    @keyframes subir {
+      from { transform: translateY(0); }
+      to   { transform: translateY(calc(-50% - 7px)); }   /* medio juego + medio hueco */
+    }
+    .torre:hover .torre-pista,
+    .torre.quieta .torre-pista { animation-play-state: paused; }
+    @media (prefers-reduced-motion: reduce) { .torre-pista { animation: none; } }
+
+    .tj {
+      position: relative; margin: 0; flex-shrink: 0;
+      aspect-ratio: 4 / 3; border-radius: 14px; overflow: hidden;
+      background: var(--tinta);
+      box-shadow: 0 0 0 1px rgba(0, 200, 255, 0.22);
+    }
+    .tj img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; display: block;
+    }
+    .tj figcaption {
+      position: absolute; inset: auto 0 0 0; z-index: 1;
+      padding: 46px 16px 16px;
+      background: linear-gradient(to top, rgba(0, 16, 79, 0.94) 24%, transparent 100%);
+      color: var(--papel);
+    }
+    .tj figcaption span {
+      display: block; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--senal);
+      margin-bottom: 5px;
+    }
+    .tj figcaption b { font-size: 16px; font-weight: 700; line-height: 1.25; }
+
+    /* la del ahorro no es una foto: corta el ritmo y se lleva la mirada */
+    .tj--dato {
+      background-color: var(--senal);
+      background-image:
+        linear-gradient(rgba(0, 16, 79, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 16, 79, 0.07) 1px, transparent 1px),
+        radial-gradient(90% 70% at 100% 0%, rgba(255, 255, 255, 0.55) 0%, transparent 60%);
+      background-size: 26px 26px, 26px 26px, 100% 100%;
+      box-shadow: 0 0 0 1px rgba(0, 16, 79, 0.18);
+    }
+    .tj-dato {
+      position: absolute; inset: 0; padding: 20px;
+      display: flex; flex-direction: column; justify-content: space-between;
+      color: var(--tinta);
+    }
+    .tj-dato > span {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; opacity: 0.62;
+    }
+    .tj-dato > b {
+      font-family: var(--display); font-size: clamp(40px, 11.5vw, 56px);
+      line-height: 0.92; letter-spacing: 0.01em; font-weight: 400;
+      margin: 4px 0 0;
+    }
+    /* doce barras, una por factura: crecen parejo porque el ahorro
+       es el mismo todos los meses */
+    .tj-meses {
+      display: flex; align-items: flex-end; gap: 3px;
+      height: 34px; margin: 10px 0 8px;
+    }
+    .tj-meses i {
+      flex: 1 1 0; min-width: 0; height: var(--h);
+      background: var(--tinta); border-radius: 2px 2px 0 0; opacity: 0.72;
+    }
+    .tj-meses i:last-child { opacity: 1; }
+    .tj-dato em {
+      font-style: normal; font-size: 13px; font-weight: 500; line-height: 1.3;
+      border-top: 1px solid rgba(0, 16, 79, 0.2); padding-top: 9px;
+    }
+    .tj-dato em b { font-weight: 800; }
+
+    /* ---------- ticker ---------- */
+    .ticker {
+      position: relative; color: var(--papel);
+      background-color: var(--tinta);
+      background-image: radial-gradient(60% 200% at 50% 50%, rgba(0, 120, 255, 0.45) 0%, transparent 70%);
+      overflow: hidden; margin-top: 56px; padding: 14px 0;
+      box-shadow: inset 0 1px 0 rgba(0, 200, 255, 0.55), inset 0 -1px 0 rgba(0, 200, 255, 0.55);
+    }
+    .ticker-pista {
+      display: flex; width: max-content;
+      animation: correr 26s linear infinite; will-change: transform;
+    }
+    .ticker.quieta .ticker-pista { animation-play-state: paused; }
+    .ticker-pista span {
+      font-family: var(--display); font-size: 22px; text-transform: uppercase;
+      letter-spacing: 0.03em; padding: 0 18px; white-space: nowrap;
+    }
+    .ticker-pista i { font-style: normal; color: var(--senal); padding: 0 2px; }
+    @keyframes correr { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @media (prefers-reduced-motion: reduce) { .ticker-pista { animation: none; } }
+
+    /* ---------- secciones ----------
+       El azul es superficie tecnica: rejilla de plano, resplandor y un
+       filo de luz donde toca el blanco. El blanco se deja limpio: el
+       contraste nace de esa oposicion, no de un segundo color. */
+    .sec { padding: 60px 0; }
+    .sec-negra {
+      position: relative; isolation: isolate;
+      color: var(--papel);
+      background-color: var(--tinta);
+      background-image:
+        linear-gradient(rgba(0, 200, 255, 0.065) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 200, 255, 0.065) 1px, transparent 1px),
+        radial-gradient(115% 80% at 78% -10%, rgba(0, 90, 255, 0.55) 0%, transparent 62%),
+        radial-gradient(90% 70% at 5% 110%, rgba(0, 200, 255, 0.16) 0%, transparent 60%);
+      background-size: 58px 58px, 58px 58px, 100% 100%, 100% 100%;
+    }
+    .sec-negra .muted { color: var(--piedra); }
+    /* filo luminoso en las dos costuras con el blanco */
+    .sec-negra::before,
+    .sec-negra::after {
+      content: ""; position: absolute; left: 0; right: 0; height: 1px; z-index: 2;
+      background: linear-gradient(90deg, transparent 4%, var(--senal) 50%, transparent 96%);
+      opacity: 0.7;
+    }
+    .sec-negra::before { top: 0; }
+    .sec-negra::after { bottom: 0; }
+    .sec-head { margin-bottom: 32px; }
+    .sec-head-fila { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+
+    /* ---------- planes ----------
+       Cada plan es UNA pieza cerrada: nombre, precio, lo que incluye y
+       la accion, todo dentro del mismo cartel. */
+    /* carrusel: scroll horizontal nativo con enganche. Sin libreria,
+       y con teclado y gesto tactil ya resueltos por el navegador. */
+    .carrusel { position: relative; margin: 0 -18px; }
+    .planes {
+      display: grid; grid-auto-flow: column;
+      grid-auto-columns: 84%;
+      gap: 16px; padding: 18px 18px 38px;
+      /* el eje vertical se cierra a mano: si se deja en auto, el
+         carrusel saca su propia barra vertical */
+      overflow-x: auto; overflow-y: hidden;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory; scroll-padding-left: 18px;
+      scrollbar-width: none; -ms-overflow-style: none;
+    }
+    .planes::-webkit-scrollbar { display: none; }
+    .plan { scroll-snap-align: start; }
+
+    .flechas { display: flex; gap: 8px; }
+    .flecha {
+      width: 46px; height: 46px; border-radius: 50%; flex-shrink: 0;
+      border: 1px solid var(--tinta); background: transparent; color: var(--tinta);
+      display: grid; place-items: center; cursor: pointer;
+      transition: background 180ms ease, color 180ms ease, opacity 180ms ease;
+    }
+    .flecha:hover { background: var(--tinta); color: var(--papel); }
+    .flecha[disabled] { opacity: 0.25; cursor: default; }
+    .flecha[disabled]:hover { background: transparent; color: var(--tinta); }
+    .flecha svg { display: block; }
+    .plan {
+      --fondo: var(--papel);
+      position: relative; isolation: isolate; overflow: hidden;
+      display: flex; flex-direction: column;
+      background: var(--fondo); border-radius: 18px;
+      border: 1px solid var(--hormigon);
+      padding: 26px 22px 24px;
+    }
+    /* el destacado: superficie tecnica, como las bandas */
+    .plan--top {
+      --fondo: var(--tinta);
+      color: var(--papel); border-color: transparent;
+      background-color: var(--tinta);
+      background-image:
+        linear-gradient(rgba(0, 200, 255, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 200, 255, 0.07) 1px, transparent 1px),
+        radial-gradient(110% 75% at 85% -5%, rgba(0, 90, 255, 0.6) 0%, transparent 62%);
+      background-size: 44px 44px, 44px 44px, 100% 100%;
+      /* sombra contenida para que quepa dentro del carrusel sin cortarse */
+      box-shadow: 0 0 0 1px rgba(0, 200, 255, 0.28), 0 12px 28px rgba(0, 12, 60, 0.26);
+    }
+    .plan--top::before {
+      content: ""; position: absolute; top: 0; left: 8%; right: 8%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--senal), transparent);
+    }
+
+    .plan-tag {
+      align-self: flex-start; border-radius: 100px;
+      border: 1px solid currentColor; padding: 6px 13px; margin-bottom: 18px;
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .plan--top .plan-tag { color: var(--senal); }
+
+    .plan-nombre {
+      font-family: var(--display); font-size: clamp(56px, 14vw, 92px);
+      line-height: 0.84; text-transform: uppercase; letter-spacing: 0.01em;
+    }
+    .plan-nombre small {
+      display: block; font-family: var(--ui); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.12em; margin-top: 12px; text-transform: uppercase;
+      color: var(--pizarra);
+    }
+    .plan--top .plan-nombre small { color: var(--senal); }
+
+    .plan-precio {
+      display: flex; align-items: baseline; flex-wrap: wrap; gap: 2px 10px;
+      margin: 22px 0 4px;
+    }
+    .plan-precio b {
+      font-family: var(--display); font-size: clamp(40px, 9vw, 58px);
+      line-height: 1; letter-spacing: 0.01em; font-weight: 400;
+    }
+    .plan-precio em { font-style: normal; font-size: 15px; color: var(--pizarra); }
+    .plan--top .plan-precio em { color: var(--piedra); }
+    .plan-antes {
+      display: flex; align-items: baseline; gap: 9px; flex-wrap: wrap;
+      font-size: 14px; color: var(--pizarra); margin-bottom: 20px;
+    }
+    .plan--top .plan-antes { color: var(--piedra); }
+    .plan-antes s { opacity: 0.85; }
+    .plan-ahorro {
+      font-weight: 700; color: var(--tinta);
+      background: var(--senal); border-radius: 100px; padding: 4px 11px;
+      font-size: 12px; letter-spacing: 0.04em; white-space: nowrap;
+    }
+
+    .plan-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+    .plan-lista li {
+      display: flex; gap: 12px; align-items: baseline;
+      font-size: 15px; line-height: 1.4; padding: 12px 0;
+      border-bottom: 1px solid var(--hormigon);
+    }
+    .plan--top .plan-lista li { border-bottom-color: rgba(0, 200, 255, 0.18); }
+    .plan-lista li::before { content: "—"; color: var(--piedra); flex-shrink: 0; }
+    .plan--top .plan-lista li::before { color: var(--senal); }
+
+    /* a quien le sirve este plan: no es una prestacion, es el motivo
+       para elegirlo, asi que va aparte de la lista */
+    .plan-quien {
+      margin-top: 20px; padding-top: 16px;
+      border-top: 1px solid var(--hormigon);
+    }
+    .plan--top .plan-quien { border-top-color: rgba(0, 200, 255, 0.18); }
+    .plan-quien span {
+      display: block; font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--piedra); margin-bottom: 7px;
+    }
+    .plan-quien p {
+      margin: 0; font-size: 16px; line-height: 1.35; font-weight: 500;
+    }
+    .plan-quien { margin-bottom: 18px; }
+
+    /* logos de las plataformas: los oficiales, no dibujados */
+    .plan-ott {
+      display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+      padding: 2px 0 18px;
+    }
+    /* alturas distintas a proposito: el de HBO es de dos lineas y el de
+       Paramount de una sola muy alargada; igualarlos los descompensa */
+    .plan-ott img { height: 23px; width: auto; display: block; }
+    .plan-ott img[alt="HBO Max"] { height: 31px; }
+    .plan-ott .ott-nota {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--piedra);
+    }
+    /* el auto se come el espacio sobrante: los botones de las cuatro
+       tarjetas quedan a la misma altura, tengan o no logos */
+    .plan .pill { width: 100%; margin-top: auto; }
+
+    /* ---------- grafico del ahorro ----------
+       Rampa neutra para lo que se paga suelto, cian solo para el Trio.
+       La separacion es croma contra neutro, no matiz contra matiz: se
+       distingue igual en daltonismo (validado, dE 14.5 protan). */
+    .graf { margin: 0; padding-top: 8px; }
+    .graf-bloque { padding: 24px 0; border-top: 1px solid var(--carbon); }
+    .graf-bloque:last-of-type { border-bottom: 1px solid var(--carbon); }
+    .graf-rot {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 14px; flex-wrap: wrap; margin-bottom: 14px;
+    }
+    .graf-rot span {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.14em; color: var(--piedra);
+    }
+    .graf-cifra {
+      font-family: var(--display); font-size: clamp(32px, 7vw, 48px);
+      line-height: 1; letter-spacing: 0.01em;
+    }
+    .graf-cifra--gana { color: var(--senal); }
+
+    .barra { display: flex; gap: 2px; height: 38px; width: 100%; }
+    .seg {
+      position: relative; min-width: 3px;
+      background: var(--tono); height: 100%;
+    }
+    .barra > .seg:first-child { border-radius: 4px 0 0 4px; }
+    .barra > .seg:last-child  { border-radius: 0 4px 4px 0; }
+    .barra > .seg:only-child   { border-radius: 4px; }
+    .seg--gana { background: var(--senal); border-radius: 4px; }
+    .hueco {
+      flex-grow: 1; height: 100%; border: 1px dashed var(--carbon);
+      border-radius: 4px; display: grid; place-items: center;
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--piedra); overflow: hidden;
+      white-space: nowrap; padding: 0 6px;
+    }
+    /* etiqueta al pasar el cursor sobre cada tramo */
+    .seg[data-lbl]:hover::after {
+      content: attr(data-lbl);
+      position: absolute; left: 50%; bottom: calc(100% + 8px);
+      transform: translateX(-50%);
+      background: var(--papel); color: var(--tinta);
+      font-size: 12px; font-weight: 700; letter-spacing: 0.04em;
+      padding: 7px 11px; border-radius: 4px; white-space: nowrap; z-index: 5;
+    }
+
+    .leyenda { list-style: none; margin: 16px 0 0; padding: 0; display: flex; flex-direction: column; gap: 0; }
+    .leyenda li {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 0; font-size: 15px;
+      border-bottom: 1px solid rgba(147, 163, 204, 0.22);
+    }
+    .leyenda li:last-child { border-bottom: 0; }
+    .leyenda .tono { flex-shrink: 0; width: 12px; height: 12px; border-radius: 2px; background: var(--tono); }
+    .leyenda .que { flex-grow: 1; min-width: 0; }
+    .leyenda b { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .graf-nota { margin: 16px 0 0; font-size: 13px; line-height: 1.45; color: var(--piedra); max-width: 62ch; }
+    .veredicto { margin-top: 34px; }
+    .veredicto .display { color: var(--papel); }
+    .veredicto .display i { font-style: normal; color: var(--senal); }
+
+    /* ---------- banda de beneficios ---------- */
+    .bene-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 40px; margin-top: 36px; }
+    .bene { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+    .bene svg { display: block; }
+    .bene h3 { margin: 0; font-size: 18px; font-weight: 700; letter-spacing: 0.06em; }
+    .bene p { margin: 0; font-size: 15px; line-height: 1.45; color: var(--pizarra); max-width: 34ch; }
+
+    /* ---------- lo que vas a pagar de verdad ----------
+       El salto del mes 13 se enseña, no se esconde: quien se entera por
+       la factura cancela; quien lo sabe antes, se queda. */
+    .mes13 { margin-top: 44px; }
+    .mes13-rot {
+      font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--piedra); margin-bottom: 18px;
+    }
+    .mes13-barras {
+      display: grid; grid-template-columns: repeat(13, minmax(0, 1fr));
+      align-items: end; gap: 3px; height: 92px;
+    }
+    .mes13-barras i {
+      height: var(--h); border-radius: 3px 3px 0 0;
+      background: var(--senal); opacity: 0.55;
+    }
+    .mes13-barras i.sube { background: var(--papel); opacity: 1; }
+    .mes13-pies {
+      display: flex; justify-content: space-between; gap: 10px;
+      margin-top: 10px; font-size: 12px; color: var(--piedra);
+    }
+    .mes13-nota {
+      margin: 16px 0 0; font-size: 15px; line-height: 1.45;
+      color: rgba(255, 255, 255, 0.82); max-width: 58ch;
+    }
+    .mes13-nota b { color: var(--papel); }
+
+    /* ---------- comparador con la factura propia ---------- */
+    .tuya { padding: 56px 0; background: var(--ceniza); }
+    .tuya-caja { max-width: 760px; }
+    .tuya-campos {
+      display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px;
+      margin-top: 26px;
+    }
+    .campo-peso { position: relative; }
+    .campo-peso label {
+      display: block; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--pizarra); margin-bottom: 7px;
+    }
+    .campo-peso i {
+      position: absolute; left: 18px; bottom: 17px; font-style: normal;
+      font-size: 17px; font-weight: 700; color: var(--piedra); pointer-events: none;
+    }
+    .campo-peso input {
+      width: 100%; -webkit-appearance: none; appearance: none;
+      font-family: var(--ui); font-size: 17px; font-weight: 700;
+      letter-spacing: 0.02em; font-variant-numeric: tabular-nums;
+      color: var(--tinta); background: var(--papel);
+      border: 1px solid var(--hormigon); border-radius: 16px;
+      padding: 15px 16px 15px 34px; min-height: 56px;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+    .campo-peso input::placeholder { color: var(--piedra); font-weight: 400; }
+    .campo-peso input:focus {
+      outline: none; border-color: var(--tinta);
+      box-shadow: 0 0 0 3px rgba(0, 200, 255, 0.3);
+    }
+
+    .tuya-salida { margin-top: 24px; }
+    .tuya-salida[hidden] { display: none; }
+    .tuya-fila {
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 14px; padding: 12px 0; font-size: 16px;
+      border-bottom: 1px solid var(--hormigon);
+    }
+    .tuya-fila b { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .tuya-remate {
+      margin-top: 18px; padding: 20px 22px; border-radius: 18px;
+      background: var(--tinta); color: var(--papel);
+    }
+    .tuya-remate span {
+      display: block; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase; color: var(--senal);
+      margin-bottom: 6px;
+    }
+    .tuya-remate b {
+      font-family: var(--display); font-size: clamp(34px, 7vw, 50px);
+      line-height: 1; letter-spacing: 0.01em; font-weight: 400;
+    }
+    .tuya-remate em {
+      font-style: normal; display: block; margin-top: 10px;
+      font-size: 15px; color: rgba(255, 255, 255, 0.8);
+    }
+    .tuya-remate.parejo { background: var(--papel); color: var(--tinta); border: 1px solid var(--hormigon); }
+    .tuya-remate.parejo span { color: var(--pizarra); }
+    .tuya-remate.parejo em { color: var(--pizarra); }
+    .tuya-remate .pill { margin-top: 16px; }
+
+    /* ---------- los tres pasos ---------- */
+    .pasos { padding: 56px 0; background: var(--ceniza); }
+    .pasos-grid {
+      display: grid; grid-template-columns: minmax(0, 1fr);
+      gap: 0; margin-top: 34px;
+    }
+    .paso { position: relative; padding: 26px 0; border-top: 1px solid var(--hormigon); }
+    .paso:last-child { border-bottom: 1px solid var(--hormigon); }
+    .paso-num {
+      font-family: var(--display); font-size: clamp(52px, 11vw, 76px);
+      line-height: 0.9; letter-spacing: 0.01em; margin-bottom: 12px;
+      color: var(--tinta); opacity: 0.16;
+    }
+    /* numeros huecos donde el navegador sepa dibujarlos */
+    @supports (-webkit-text-stroke: 1px black) {
+      .paso-num {
+        -webkit-text-stroke: 2px var(--tinta);
+        color: transparent; opacity: 1;
+      }
+    }
+    .paso h3 {
+      margin: 0 0 8px; font-size: 20px; font-weight: 700;
+      letter-spacing: 0.06em; line-height: 1.2;
+    }
+    .paso p { margin: 0; font-size: 16px; line-height: 1.45; color: var(--pizarra); max-width: 34ch; }
+
+    /* ---------- cierre ---------- */
+    .cierre-caja { display: flex; flex-direction: column; gap: 26px; }
+    .cierre-datos { display: flex; flex-direction: column; gap: 6px; font-size: 14px; color: var(--piedra); }
+
+    /* ---------- legal ---------- */
+    .legal { border-top: 1px solid var(--hormigon); padding: 34px 0 44px; }
+    .legal ul { margin: 14px 0 0; padding-left: 16px; display: flex; flex-direction: column; gap: 7px; }
+    .legal li { font-size: 12px; line-height: 1.5; color: var(--pizarra); }
+    .legal-pie {
+      margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--hormigon);
+      display: flex; flex-direction: column; gap: 6px; font-size: 12px; color: var(--pizarra);
+    }
+
+    /* ---------- entrada al hacer scroll (la pone el JS) ---------- */
+    .rv { opacity: 0; transform: translateY(26px); }
+    /* la linea enmascarada no se desvanece: solo sube el texto de dentro */
+    .rv-ln { opacity: 1; transform: none; }
+    .rv-on {
+      opacity: 1; transform: none;
+      transition: opacity 700ms cubic-bezier(0.22,1,0.36,1), transform 700ms cubic-bezier(0.22,1,0.36,1);
+    }
+    .rv-ln > span { transform: translateY(105%); }
+    .rv-ln.rv-on > span { transform: none; transition: transform 900ms cubic-bezier(0.19,1,0.22,1); }
+    .rv-3d { transform: perspective(1400px) rotateX(9deg) translateY(38px); transform-origin: 50% 100%; }
+    .rv-3d.rv-on { transform: none; transition: opacity 820ms ease, transform 960ms cubic-bezier(0.19,1,0.22,1); }
+    @media (prefers-reduced-motion: reduce) {
+      .rv, .rv-on, .rv-3d, .rv-ln > span { opacity: 1; transform: none; transition: none; }
+    }
+
+    /* =========================================================
+       TABLET  >= 720px
+       ========================================================= */
+    @media (min-width: 720px) {
+      .wrap { padding: 0 32px; }
+      .sec { padding: 80px 0; }
+      .sec-head-fila { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+      .carrusel { margin: 0 -32px; }
+      .planes {
+        grid-auto-columns: calc((100% - 84px) / 2);
+        gap: 20px; padding: 18px 32px 38px; scroll-padding-left: 32px;
+      }
+      .bene-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+      .tuya-campos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      .tuya { padding: 76px 0; }
+      .pasos-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+      .paso { padding: 0; border: 0; }
+      .paso:last-child { border: 0; }
+      /* el filete pasa a ser un hilo que enhebra los tres pasos */
+      .paso::before {
+        content: ""; position: absolute; top: 34px; left: 0; right: -28px; height: 1px;
+        background: repeating-linear-gradient(90deg, var(--hormigon) 0 6px, transparent 6px 12px);
+        z-index: 0;
+      }
+      .paso:last-child::before { display: none; }
+      .paso-num { position: relative; z-index: 1; display: inline-block; background: var(--ceniza); padding-right: 14px; }
+      .cuenta { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; }
+      .cierre-caja { flex-direction: row; justify-content: space-between; align-items: flex-end; }
+      .ticker-pista span { font-size: 30px; }
+      .legal-pie { flex-direction: row; justify-content: space-between; }
+    }
+
+    /* =========================================================
+       ESCRITORIO  >= 1000px
+       ========================================================= */
+    @media (min-width: 1000px) {
+      .nav { padding: 24px 0; flex-wrap: nowrap; }
+      .nav-links { order: 0; width: auto; gap: 26px; overflow: visible; }
+      .nav-links a { font-size: 14px; font-weight: 400; }
+      .hero { padding-top: 72px; }
+      /* stretch + altura automatica: la torre llega desde el borde del
+         titular hasta el pie de los botones, sin numeros a mano */
+      .hero-grid {
+        grid-template-columns: minmax(0, 1.22fr) minmax(0, 0.78fr);
+        gap: 64px; align-items: stretch;
+      }
+      .torre { height: auto; min-height: 520px; }
+      .hero .display { margin-bottom: 28px; }
+      .sec { padding: 120px 0; }
+      .ticker { margin-top: 96px; padding: 18px 0; }
+      .ticker-pista span { font-size: 38px; }
+      .planes { grid-auto-columns: calc((100% - 108px) / 3); gap: 22px; }
+      .bene-grid { gap: 40px; margin-top: 56px; }
+      .cuenta { gap: 80px; }
+      .veredicto { margin-top: 56px; }
+    }
+  </style>
+
+</head>
+<body>
+
+
+<div class="page">
+
+  <!-- ================= BARRA ================= -->
+  <div class="wrap">
+    <nav class="nav">
+      <div class="marca">
+        <div class="marca-cubo">CV</div>
+        <div class="marca-txt">Conecta Valle</div>
+      </div>
+      <div class="nav-links">
+        <a href="#cobertura">Cobertura</a>
+        <a href="#planes">Planes</a>
+        <a href="#cuenta">La cuenta</a>
+        <a href="#incluye">Qué incluye</a>
+        <a href="#pasos">Cómo se activa</a>
+      </div>
+      <a class="pill" href="https://wa.me/573000000000?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Full%20Tigo.">Lo quiero</a>
+    </nav>
+  </div>
+
+  <!-- ================= HERO ================= -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <h1 class="display" id="titular">
+            <span class="ln"><span>Una casa</span></span>
+            <span class="ln"><span>conectada</span></span>
+            <span class="ln"><span>no se paga</span></span>
+            <span class="ln"><span>tres veces</span></span>
+          </h1>
+          <p class="hero-sub">Internet de 500 megas, televisión y línea móvil ilimitada. Un solo recibo, una sola fecha, un solo lugar donde reclamar.</p>
+
+          <p class="hero-desde"><span>Planes desde</span><b>$69.900</b><em>al mes</em></p>
+
+          <div class="vigencia" id="vigencia" hidden>
+            <span class="punto" aria-hidden="true"></span>
+            <span id="vigencia-txt"></span>
+          </div>
+
+          <div class="hero-cta">
+            <a class="pill pill--lg" href="https://wa.me/573000000000?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20Full%20Tigo.">Escríbenos por WhatsApp</a>
+            <a class="pill pill--out pill--lg" href="#planes">Ver los planes</a>
+          </div>
+        </div>
+
+        <div class="torre" id="torre" aria-label="Lo que puedes hacer con el plan">
+          <div class="torre-pista" id="torre-pista">
+            <!-- el juego se duplica solo, por JS, para que el bucle no salte -->
+            <figure class="tj">
+              <img src="t-series.jpg" alt="" width="1000" height="750" fetchpriority="high">
+              <figcaption><span>Entretenimiento</span><b>Series y estrenos con HBO Max y Paramount+</b></figcaption>
+            </figure>
+
+            <figure class="tj tj--dato">
+              <div class="tj-dato">
+                <span>Ahorro al año</span>
+                <b>$360.000</b>
+                <div class="tj-meses" aria-hidden="true">
+                  <i style="--h:8%"></i><i style="--h:16%"></i><i style="--h:25%"></i>
+                  <i style="--h:33%"></i><i style="--h:42%"></i><i style="--h:50%"></i>
+                  <i style="--h:58%"></i><i style="--h:67%"></i><i style="--h:75%"></i>
+                  <i style="--h:83%"></i><i style="--h:92%"></i><i style="--h:100%"></i>
+                </div>
+                <em><b>$30.000</b> menos cada mes, durante los 12 meses</em>
+              </div>
+            </figure>
+
+            <figure class="tj">
+              <img src="t-casa.jpg" alt="" width="1000" height="750" loading="lazy">
+              <figcaption><span>500 megas</span><b>Toda la casa conectada al mismo tiempo</b></figcaption>
+            </figure>
+            <figure class="tj">
+              <img src="t-trabajo.jpg" alt="" width="1000" height="750" loading="lazy">
+              <figcaption><span>Videollamadas</span><b>Reuniones que no se congelan</b></figcaption>
+            </figure>
+            <figure class="tj">
+              <img src="t-calle.jpg" alt="" width="1000" height="750" loading="lazy">
+              <figcaption><span>Móvil ilimitado</span><b>En la calle, sin contar gigas</b></figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-pista">
+        <span>500 megas <i>//</i> tv avanzado <i>//</i> móvil ilimitado <i>//</i> sin cargo de conexión <i>//</i> una sola factura <i>//</i></span>
+        <span>500 megas <i>//</i> tv avanzado <i>//</i> móvil ilimitado <i>//</i> sin cargo de conexión <i>//</i> una sola factura <i>//</i></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= COBERTURA ================= -->
+  <section class="cobertura" id="cobertura">
+    <div class="wrap">
+      <div class="cob-caja">
+        <h2 class="titulo">¿Llegamos a tu municipio?</h2>
+        <p class="cuerpo muted">Escribe dónde vives y te decimos de una si la oferta aplica ahí.</p>
+
+        <form class="cob-form" id="cob-form" novalidate>
+          <div class="cob-campo">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"/><path d="m20 20-3.6-3.6"/>
+            </svg>
+            <input id="cob-input" type="text" autocomplete="off" spellcheck="false"
+                   role="combobox" aria-expanded="false" aria-autocomplete="list"
+                   aria-controls="cob-sug"
+                   placeholder="Tu municipio: Cali, Pereira, Tunja…" aria-label="Tu municipio">
+            <ul class="cob-sug" id="cob-sug" role="listbox" hidden></ul>
+          </div>
+          <button class="pill" type="submit">Consultar</button>
+        </form>
+
+        <div class="cob-resp" id="cob-resp" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PLANES ================= -->
+  <section class="sec" id="planes">
+    <div class="wrap">
+      <div class="sec-head sec-head-fila">
+        <div>
+          <h2 class="titulo">Dos formas de tenerlo todo</h2>
+          <p class="cuerpo muted">Los dos traen 500 megas y móvil ilimitado. Lo que cambia es la televisión.</p>
+        </div>
+        <div class="flechas">
+          <button class="flecha" type="button" data-paso="-1" aria-label="Ver promociones anteriores">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5 8 12l7 7"/></svg>
+          </button>
+          <button class="flecha" type="button" data-paso="1" aria-label="Ver más promociones">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="carrusel">
+      <div class="planes" id="pista-planes" tabindex="0" role="region" aria-label="Promociones disponibles">
+
+        <article class="plan plan--top">
+          <div class="plan-tag">El completo</div>
+          <div class="plan-nombre">Trío<small>Internet · TV · Móvil</small></div>
+
+          <div class="plan-precio"><b>$119.900</b><em>al mes</em></div>
+          <div class="plan-antes">
+            <span>antes <s>$149.900</s></span>
+            <span class="plan-ahorro">$30.000 menos al mes</span>
+          </div>
+
+          <ul class="plan-lista">
+            <li>500 megas de fibra</li>
+            <li>TV Tigo Avanzado, 152 canales, 2 decos</li>
+            <li>Móvil con gigas y minutos ilimitados</li>
+            <li>Paramount+ y HBO Max, 12 meses</li>
+          </ul>
+
+          <div class="plan-quien">
+            <span>Para quién es</span>
+            <p>Para la casa donde cada quien ve lo suyo al mismo tiempo, sin que el internet se resienta.</p>
+          </div>
+
+          <div class="plan-ott">
+            <img src="logo-hbomax.png" alt="HBO Max">
+            <img src="logo-paramount.png" alt="Paramount+">
+            <span class="ott-nota">incluidos 12 meses</span>
+          </div>
+
+          <a class="pill pill--inv" href="https://wa.me/573000000000?text=Hola%2C%20me%20interesa%20el%20Tr%C3%ADo%20de%20Full%20Tigo%20por%20%24119.900%20al%20mes.">Quiero el Trío</a>
+        </article>
+
+        <article class="plan">
+          <div class="plan-tag">El económico</div>
+          <div class="plan-nombre">Dúo<small>Internet · Móvil</small></div>
+
+          <div class="plan-precio"><b>$89.900</b><em>al mes</em></div>
+          <div class="plan-antes">
+            <span>antes <s>$119.900</s></span>
+            <span class="plan-ahorro">$30.000 menos al mes</span>
+          </div>
+
+          <ul class="plan-lista">
+            <li>500 megas de fibra</li>
+            <li>Móvil con gigas y minutos ilimitados</li>
+            <li>Paramount+, 12 meses</li>
+          </ul>
+
+          <div class="plan-quien">
+            <span>Para quién es</span>
+            <p>Para quien ya tiene televisión en casa, o para quien hace rato dejó de verla y solo ve streaming.</p>
+          </div>
+
+          <div class="plan-ott">
+            <img src="logo-paramount-azul.png" alt="Paramount+">
+            <span class="ott-nota">incluido 12 meses</span>
+          </div>
+
+          <a class="pill" href="https://wa.me/573000000000?text=Hola%2C%20me%20interesa%20el%20D%C3%BAo%20de%20Full%20Tigo%20por%20%2489.900%20al%20mes.">Quiero el Dúo</a>
+        </article>
+
+        <article class="plan">
+          <div class="plan-tag">Solo internet</div>
+          <div class="plan-nombre">Fibra<small>Internet · 500 megas</small></div>
+
+          <div class="plan-precio"><b>$84.900</b><em>al mes · estratos 1 a 3</em></div>
+          <div class="plan-antes">
+            <span>primer mes</span>
+            <span class="plan-ahorro">a mitad de precio: $42.450</span>
+          </div>
+
+          <ul class="plan-lista">
+            <li>500 megas de fibra</li>
+            <li>Wifi para toda la casa</li>
+            <li>Instalación sin costo</li>
+            <li>Estratos 4 a 6: $101.031 al mes</li>
+          </ul>
+
+          <div class="plan-quien">
+            <span>Para quién es</span>
+            <p>Para quien no quiere televisión ni línea fija, y solo necesita que el internet no falle.</p>
+          </div>
+
+          <a class="pill" href="https://wa.me/573000000000?text=Hola%2C%20me%20interesa%20el%20plan%20de%20internet%20de%20500%20megas%20por%20%2484.900%20al%20mes.">Quiero la fibra</a>
+        </article>
+
+        <article class="plan">
+          <div class="plan-tag">Solo móvil</div>
+          <div class="plan-nombre">Móvil<small>Pospago ilimitado</small></div>
+
+          <div class="plan-precio"><b>$69.900</b><em>al mes</em></div>
+          <div class="plan-antes">
+            <span>sin cláusula de permanencia</span>
+          </div>
+
+          <ul class="plan-lista">
+            <li>Gigas ilimitados a máxima velocidad</li>
+            <li>Minutos y mensajes ilimitados a cualquier operador</li>
+            <li>Llamadas ilimitadas a Estados Unidos, Canadá y Puerto Rico</li>
+            <li>15 GB para compartir</li>
+          </ul>
+
+          <div class="plan-quien">
+            <span>Para quién es</span>
+            <p>Para quien vive en la calle y lo resuelve todo desde el celular.</p>
+          </div>
+
+          <a class="pill" href="https://wa.me/573000000000?text=Hola%2C%20me%20interesa%20el%20plan%20m%C3%B3vil%20ilimitado%20por%20%2469.900%20al%20mes.">Quiero el móvil</a>
+        </article>
+
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LA CUENTA ================= -->
+  <section class="sec sec-negra" id="cuenta">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="titulo">Haz la cuenta</h2>
+        <p class="cuerpo muted">Lo que cuesta cada servicio por su lado, contra lo que cuesta todo junto.</p>
+      </div>
+
+      <figure class="graf">
+
+        <div class="graf-bloque">
+          <div class="graf-rot">
+            <span>Cada servicio por su lado</span>
+            <div class="graf-cifra">$200.800</div>
+          </div>
+          <div class="barra" role="img" aria-label="Por separado: internet 84.900, televisión 46.000 y móvil 69.900 pesos, que suman 200.800 pesos al mes.">
+            <div class="seg" style="--tono:#E8EDF8; width:42.28%" data-lbl="Internet · $84.900"></div>
+            <div class="seg" style="--tono:#A9B8DC; width:22.91%" data-lbl="TV Avanzado · $46.000"></div>
+            <div class="seg" style="--tono:#6E80B0; width:34.81%" data-lbl="Móvil ilimitado · $69.900"></div>
+          </div>
+          <ul class="leyenda">
+            <li><span class="tono" style="--tono:#E8EDF8"></span><span class="que">Internet 500 megas</span><b>$84.900</b></li>
+            <li><span class="tono" style="--tono:#A9B8DC"></span><span class="que">TV Tigo Avanzado</span><b>$46.000</b></li>
+            <li><span class="tono" style="--tono:#6E80B0"></span><span class="que">Móvil pospago ilimitado</span><b>$69.900</b></li>
+          </ul>
+        </div>
+
+        <div class="graf-bloque">
+          <div class="graf-rot">
+            <span>Todo junto, con el Trío</span>
+            <div class="graf-cifra graf-cifra--gana">$119.900</div>
+          </div>
+          <div class="barra" role="img" aria-label="Con el Trío: los tres servicios juntos cuestan 119.900 pesos al mes, 80.900 menos.">
+            <div class="seg seg--gana" style="width:59.71%" data-lbl="Los tres servicios · $119.900"></div>
+            <div class="hueco">$80.900 que no pagas</div>
+          </div>
+        </div>
+
+        <figcaption class="graf-nota">
+          Tarifas plenas de cada servicio por separado, a la misma velocidad y con los mismos canales.
+        </figcaption>
+
+      </figure>
+
+      <div class="veredicto">
+        <p class="display display--sm">
+          <span class="ln"><span>Sobran</span></span>
+          <span class="ln"><span><i>$80.900</i></span></span>
+          <span class="ln"><span>cada mes</span></span>
+        </p>
+      </div>
+
+      <div class="mes13">
+        <div class="mes13-rot">Lo que vas a pagar, mes a mes</div>
+        <div class="mes13-barras" aria-hidden="true">
+          <i style="--h:66%"></i><i style="--h:66%"></i><i style="--h:66%"></i>
+          <i style="--h:66%"></i><i style="--h:66%"></i><i style="--h:66%"></i>
+          <i style="--h:66%"></i><i style="--h:66%"></i><i style="--h:66%"></i>
+          <i style="--h:66%"></i><i style="--h:66%"></i><i style="--h:66%"></i>
+          <i class="sube" style="--h:100%"></i>
+        </div>
+        <div class="mes13-pies">
+          <span>Mes 1 al 12 · $119.900</span>
+          <span>Mes 13 · $149.900</span>
+        </div>
+        <p class="mes13-nota">
+          Te lo decimos aquí y no en la letra pequeña: el precio promocional dura
+          <b>12 meses</b>. Desde el mes 13 el Trío pasa a su tarifa plena de
+          <b>$149.900</b>. Aun contando eso, el primer año te ahorras $360.000.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TU PROPIA CUENTA ================= -->
+  <section class="tuya" id="tuya">
+    <div class="wrap">
+      <div class="tuya-caja">
+        <h2 class="titulo">Hazla con tus números</h2>
+        <p class="cuerpo muted">Escribe lo que pagas hoy y te decimos si te conviene. Si no te conviene, también.</p>
+
+        <div class="tuya-campos">
+          <div class="campo-peso">
+            <label for="p-int">Internet al mes</label>
+            <i>$</i><input id="p-int" type="text" inputmode="numeric" autocomplete="off" placeholder="0">
+          </div>
+          <div class="campo-peso">
+            <label for="p-tv">Televisión al mes</label>
+            <i>$</i><input id="p-tv" type="text" inputmode="numeric" autocomplete="off" placeholder="0">
+          </div>
+          <div class="campo-peso">
+            <label for="p-cel">Celular al mes</label>
+            <i>$</i><input id="p-cel" type="text" inputmode="numeric" autocomplete="off" placeholder="0">
+          </div>
+        </div>
+
+        <div class="tuya-salida" id="tuya-salida" role="status" aria-live="polite" hidden></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= QUÉ INCLUYE ================= -->
+  <section class="sec" id="incluye">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="titulo">Lo que llega el primer día</h2>
+      </div>
+      <div class="bene-grid">
+
+        <div class="bene">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10 32a37 37 0 0 1 52 0"/>
+            <path d="M20 43a23 23 0 0 1 32 0"/>
+            <path d="M29 53a9 9 0 0 1 14 0"/>
+            <circle cx="36" cy="62" r="2.6" fill="currentColor" stroke="none"/>
+          </svg>
+          <h3>500 megas de fibra</h3>
+          <p>Toda la casa viendo, jugando y trabajando a la vez, sin que la señal se caiga.</p>
+        </div>
+
+        <div class="bene">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="8" y="22" width="56" height="38" rx="4"/>
+            <path d="M24 10l12 12 12-12"/>
+            <path d="M28 66h16"/>
+          </svg>
+          <h3>152 canales y 2 decos</h3>
+          <p>TV Tigo Avanzado con 27 canales SD y 125 HD, con dos decodificadores en el Trío.</p>
+        </div>
+
+        <div class="bene">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="20" y="6" width="32" height="60" rx="6"/>
+            <path d="M32 57h8"/>
+            <path d="M30 15h12"/>
+          </svg>
+          <h3>Móvil sin contar gigas</h3>
+          <p>Gigas, minutos y mensajes ilimitados a cualquier operador, en la factura de la casa.</p>
+        </div>
+
+        <div class="bene">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="36" cy="36" r="27"/>
+            <path d="M30 24l20 12-20 12Z"/>
+          </svg>
+          <h3>Paramount+ y HBO Max</h3>
+          <p>Doce meses incluidos, sin costo aparte, activados junto con el plan.</p>
+        </div>
+
+        <div class="bene">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M18 8h36v56l-9-6-9 6-9-6-9 6V8Z"/>
+            <path d="M28 26h16"/>
+            <path d="M28 38h16"/>
+          </svg>
+          <h3>Una sola factura</h3>
+          <p>Un pago, una fecha, un solo número al que llamar. Se acabaron los tres recibos.</p>
+        </div>
+
+        <div class="bene">
+          <svg width="72" height="72" viewBox="0 0 72 72" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="36" cy="36" r="27"/>
+            <path d="M23 37l9 9 17-17"/>
+          </svg>
+          <h3>Instalación sin costo</h3>
+          <p>No se paga cargo de conexión. El técnico va, instala y deja todo andando.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= LOS TRES PASOS ================= -->
+  <section class="pasos" id="pasos">
+    <div class="wrap">
+      <div class="sec-head">
+        <h2 class="titulo">Y ya, eso es todo</h2>
+        <p class="cuerpo muted">Tres pasos entre escribirnos y quedar conectado.</p>
+      </div>
+
+      <div class="pasos-grid">
+        <div class="paso">
+          <div class="paso-num" aria-hidden="true">01</div>
+          <h3>Nos escribes</h3>
+          <p>Nos cuentas dónde vives y qué plan te sirve. Por WhatsApp, sin llamadas ni formularios largos.</p>
+        </div>
+        <div class="paso">
+          <div class="paso-num" aria-hidden="true">02</div>
+          <h3>Confirmamos la red</h3>
+          <p>Revisamos que haya cobertura en tu dirección y acordamos contigo el día de la instalación.</p>
+        </div>
+        <div class="paso">
+          <div class="paso-num" aria-hidden="true">03</div>
+          <h3>Te lo instalan</h3>
+          <p>El técnico llega, deja todo funcionando y te explica cómo activar Paramount+ y HBO Max. Sin cargo de conexión.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CIERRE ================= -->
+  <section class="sec sec-negra">
+    <div class="wrap">
+      <div class="cierre-caja">
+        <div>
+          <p class="display display--sm">
+            <span class="ln"><span>¿Lo activamos</span></span>
+            <span class="ln"><span>hoy mismo?</span></span>
+          </p>
+        </div>
+        <div class="cierre-datos">
+          <a class="pill pill--inv pill--lg" href="https://wa.me/573000000000?text=Hola%2C%20quiero%20saber%20si%20tienen%20cobertura%20en%20mi%20direcci%C3%B3n.">Escribir al 300 000 0000</a>
+          <span>Lunes a sábado, 8:00 a. m. a 7:00 p. m.</span>
+          <span>Mándanos tu dirección y te decimos si hay cobertura.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- barra de accion, solo en celular -->
+  <div class="barra-movil" id="barra-movil">
+    <div class="bm-txt">
+      <span>Planes desde</span>
+      <b>$69.900</b>
+    </div>
+    <a class="pill pill--inv" href="https://wa.me/573000000000?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20los%20planes%20de%20Full%20Tigo.">Lo quiero</a>
+  </div>
+
+  <!-- ================= LEGAL ================= -->
+  <footer class="wrap">
+    <div class="legal">
+      <div class="apunte">Condiciones</div>
+      <ul>
+        <li>Oferta Full Tigo vigente del 1 al 15 de septiembre de 2026. Precios con IVA incluido.</li>
+        <li>La tarifa promocional aplica los primeros 12 meses. Desde el mes 13 se cobra la tarifa plena de cada plan: $149.900 el Trío y $119.900 el Dúo.</li>
+        <li>Aplica para clientes nuevos y para quienes lleguen por portación o migración de su línea móvil.</li>
+        <li>Máximo dos productos por cédula que incluyan servicios fijos.</li>
+        <li>Paramount+ y HBO Max (plan básico) se incluyen por 12 meses y los activa el cliente.</li>
+        <li>El Trío incluye dos decodificadores. Los adicionales tienen costo mensual según el plan.</li>
+        <li>Sujeto a disponibilidad técnica y cobertura en Cali, Palmira, Yumbo, Jamundí, Candelaria y Cartago.</li>
+      </ul>
+      <div class="legal-pie">
+        <span>Conecta Valle S.A.S. · Distribuidor autorizado · NIT 900.000.000-1</span>
+        <span>WhatsApp 300 000 0000 · ventas@conectavalle.com.co · Cra. 5 # 12-34, Cali</span>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ---- La torre duplica sus tarjetas para que el bucle cierre sin
+   salto: la animacion sube medio recorrido y vuelve al origen. ---- */
+(function () {
+  var pista = document.getElementById('torre-pista');
+  if (!pista) return;
+  var juego = Array.prototype.slice.call(pista.children);
+  juego.forEach(function (t) {
+    var copia = t.cloneNode(true);
+    copia.setAttribute('aria-hidden', 'true');
+    pista.appendChild(copia);
+  });
+})();
+
+/* ---- Cuenta atras de la vigencia. Si la fecha ya pasó no se muestra
+   nada: mejor callar que anunciar una oferta vencida. ---- */
+(function () {
+  var caja = document.getElementById('vigencia');
+  var txt = document.getElementById('vigencia-txt');
+  if (!caja || !txt) return;
+
+  var CIERRE = new Date('2026-09-15T23:59:59-05:00').getTime();   // hora de Colombia
+
+  function pintar() {
+    var falta = CIERRE - Date.now();
+    if (falta <= 0) { caja.hidden = true; return false; }
+    caja.hidden = false;
+    var d = Math.floor(falta / 86400000);
+    var h = Math.floor(falta / 3600000) % 24;
+    var m = Math.floor(falta / 60000) % 60;
+    var partes = [];
+    if (d) partes.push(d + (d === 1 ? ' día' : ' días'));
+    partes.push(h + ' h');
+    if (!d) partes.push(m + ' min');
+    txt.innerHTML = 'La oferta cierra el 15 de septiembre · quedan <b>' + partes.join(' ') + '</b>';
+    return true;
+  }
+
+  if (pintar()) window.setInterval(pintar, 30000);
+})();
+
+/* ---- Verificador de cobertura. La lista sale de los municipios que el
+   tarifario nombra; confirma que la oferta aplica ahí, no la
+   factibilidad técnica de una dirección concreta. ---- */
+(function () {
+  var form = document.getElementById('cob-form');
+  var campo = document.getElementById('cob-input');
+  var salida = document.getElementById('cob-resp');
+  var sugs = document.getElementById('cob-sug');
+  if (!form || !campo || !salida || !sugs) return;
+
+  var MUNICIPIOS = [
+    'Bogotá', 'Soacha', 'Zipaquirá', 'Funza', 'Girardot', 'La Mesa', 'Sibaté', 'Fusagasugá',
+    'Tunja', 'Duitama', 'Sogamoso', 'Villa de Leyva', 'Chiquinquirá', 'Villavicencio', 'Yopal',
+    'Cali', 'Palmira', 'Yumbo', 'Jamundí', 'Candelaria', 'Buga', 'Tuluá', 'Cartago', 'La Unión',
+    'Popayán', 'Santander de Quilichao', 'Pasto', 'Ipiales', 'Neiva', 'Garzón', 'Pitalito',
+    'Florencia', 'Ibagué', 'Espinal', 'Mariquita',
+    'Pereira', 'Dosquebradas', 'Santa Rosa de Cabal', 'La Virginia', 'Armenia', 'Calarcá',
+    'Circasia', 'Quimbaya', 'Montenegro', 'La Tebaida', 'Manizales', 'Villamaría', 'Chinchiná',
+    'La Dorada', 'Rionegro', 'La Ceja', 'Marinilla', 'El Carmen de Viboral', 'El Santuario',
+    'Sabaneta', 'Apartadó', 'Carepa', 'Chigorodó', 'Turbo',
+    'Barranquilla', 'Puerto Colombia', 'Malambo', 'Santa Marta', 'Valledupar', 'Aguachica',
+    'Riohacha', 'Sincelejo', 'Turbaco',
+    'Bucaramanga', 'Floridablanca', 'Piedecuesta', 'Girón', 'Barrancabermeja', 'San Gil',
+    'Socorro', 'Cúcuta', 'Los Patios', 'Villa del Rosario'
+  ];
+
+  function llano(s) {
+    return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z]/g, '');
+  }
+
+  var WA = 'https://wa.me/573000000000?text=';
+
+  // ---- sugerencias mientras se escribe ----
+  var marcado = -1;
+
+  function cerrar() {
+    sugs.hidden = true; sugs.innerHTML = ''; marcado = -1;
+    campo.setAttribute('aria-expanded', 'false');
+  }
+
+  function proponer() {
+    var q = llano(campo.value.trim());
+    if (q.length < 2) { cerrar(); return; }
+
+    var hits = MUNICIPIOS.filter(function (m) { return llano(m).indexOf(q) !== -1; }).slice(0, 6);
+    if (!hits.length) { cerrar(); return; }
+
+    sugs.innerHTML = '';
+    hits.forEach(function (m, i) {
+      var li = document.createElement('li');
+      li.setAttribute('role', 'option');
+      li.setAttribute('aria-selected', 'false');
+      // resalta el trozo que coincide
+      var pos = llano(m).indexOf(q);
+      li.appendChild(document.createTextNode(m.slice(0, pos)));
+      var mk = document.createElement('mark');
+      mk.textContent = m.slice(pos, pos + q.length);
+      li.appendChild(mk);
+      li.appendChild(document.createTextNode(m.slice(pos + q.length)));
+      li.addEventListener('mousedown', function (ev) {
+        ev.preventDefault();
+        campo.value = m; cerrar(); form.requestSubmit ? form.requestSubmit() : responder();
+      });
+      sugs.appendChild(li);
+    });
+    sugs.hidden = false;
+    campo.setAttribute('aria-expanded', 'true');
+  }
+
+  function mover(paso) {
+    var items = sugs.querySelectorAll('li');
+    if (!items.length) return;
+    if (marcado > -1) items[marcado].setAttribute('aria-selected', 'false');
+    marcado = (marcado + paso + items.length) % items.length;
+    items[marcado].setAttribute('aria-selected', 'true');
+    campo.value = items[marcado].textContent;
+  }
+
+  campo.addEventListener('input', proponer);
+  campo.addEventListener('blur', function () { window.setTimeout(cerrar, 120); });
+  campo.addEventListener('keydown', function (ev) {
+    if (sugs.hidden) return;
+    if (ev.key === 'ArrowDown') { ev.preventDefault(); mover(1); }
+    else if (ev.key === 'ArrowUp') { ev.preventDefault(); mover(-1); }
+    else if (ev.key === 'Escape') { cerrar(); }
+    else if (ev.key === 'Enter' && marcado > -1) { cerrar(); }
+  });
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    cerrar();
+    responder();
+  });
+
+  function responder() {
+    var puesto = campo.value.trim();
+    if (!puesto) { campo.focus(); return; }
+    var clave = llano(puesto);
+    var hallado = null;
+    for (var i = 0; i < MUNICIPIOS.length; i++) {
+      var m = llano(MUNICIPIOS[i]);
+      if (m === clave || m.indexOf(clave) === 0 || clave.indexOf(m) === 0) { hallado = MUNICIPIOS[i]; break; }
+    }
+
+    if (hallado) {
+      salida.innerHTML =
+        '<span class="si">Sí, la oferta aplica en ' + hallado + '.</span>' +
+        'Falta confirmar que haya red en tu dirección exacta. ' +
+        '<a href="' + WA + encodeURIComponent('Hola, vivo en ' + hallado + '. ¿Tienen cobertura en mi dirección?') +
+        '">Mándanos la dirección por WhatsApp</a> y te lo decimos hoy mismo.';
+    } else {
+      salida.innerHTML =
+        '<span class="no">No tenemos la oferta publicada para “' + puesto.replace(/[<>]/g, '') + '”.</span>' +
+        'Puede que igual haya red por ahí. ' +
+        '<a href="' + WA + encodeURIComponent('Hola, vivo en ' + puesto + '. ¿Tienen cobertura por allá?') +
+        '">Escríbenos y lo revisamos</a>.';
+    }
+  }
+})();
+
+/* ---- La cuenta con los numeros del propio visitante. Elige el plan
+   segun lo que ya paga y dice la verdad aunque no le convenga. ---- */
+(function () {
+  var campos = {
+    int: document.getElementById('p-int'),
+    tv:  document.getElementById('p-tv'),
+    cel: document.getElementById('p-cel')
+  };
+  var salida = document.getElementById('tuya-salida');
+  if (!campos.int || !campos.tv || !campos.cel || !salida) return;
+
+  var PLANES = {
+    trio:  { nom: 'Trío',  precio: 119900, lleva: 'internet de 500 megas, televisión y móvil ilimitado' },
+    duo:   { nom: 'Dúo',   precio: 89900,  lleva: 'internet de 500 megas y móvil ilimitado' },
+    fibra: { nom: 'Fibra', precio: 84900,  lleva: 'internet de 500 megas' },
+    movil: { nom: 'Móvil', precio: 69900,  lleva: 'el plan móvil ilimitado' }
+  };
+  var WA = 'https://wa.me/573000000000?text=';
+
+  function pesos(n) { return '$' + n.toLocaleString('es-CO'); }
+  function leer(el) { return parseInt(el.value.replace(/\D/g, ''), 10) || 0; }
+
+  // formatea con puntos de miles mientras se escribe
+  Object.keys(campos).forEach(function (k) {
+    campos[k].addEventListener('input', function () {
+      var n = leer(this);
+      this.value = n ? n.toLocaleString('es-CO') : '';
+      calcular();
+    });
+  });
+
+  function calcular() {
+    var i = leer(campos.int), t = leer(campos.tv), c = leer(campos.cel);
+    var hoy = i + t + c;
+    if (hoy <= 0) { salida.hidden = true; return; }
+
+    var plan = t > 0 ? (i > 0 || c > 0 ? PLANES.trio : PLANES.trio)
+             : (i > 0 && c > 0 ? PLANES.duo : (i > 0 ? PLANES.fibra : PLANES.movil));
+
+    var dif = hoy - plan.precio;
+    var filas =
+      '<div class="tuya-fila"><span>Lo que pagas hoy</span><b>' + pesos(hoy) + '</b></div>' +
+      '<div class="tuya-fila"><span>Con el ' + plan.nom + '</span><b>' + pesos(plan.precio) + '</b></div>';
+
+    if (dif > 0) {
+      salida.innerHTML = filas +
+        '<div class="tuya-remate">' +
+          '<span>Te ahorras al año</span>' +
+          '<b>' + pesos(dif * 12) + '</b>' +
+          '<em>Son ' + pesos(dif) + ' menos cada mes, y el ' + plan.nom +
+          ' trae ' + plan.lleva + '.</em>' +
+          '<a class="pill pill--inv" href="' + WA +
+            encodeURIComponent('Hola, hoy pago ' + pesos(hoy) + ' al mes. Quiero el ' + plan.nom + '.') +
+          '">Lo quiero</a>' +
+        '</div>';
+    } else {
+      // decirlo tal cual: forzar un ahorro que no existe se paga caro
+      salida.innerHTML = filas +
+        '<div class="tuya-remate parejo">' +
+          '<span>Sin vueltas</span>' +
+          '<b>' + (dif === 0 ? 'Pagarías igual' : 'Hoy pagas menos') + '</b>' +
+          '<em>Por precio no te compensa. Lo que cambia es que quedaría todo en ' +
+          'una sola factura, con instalación sin costo' +
+          (plan === PLANES.trio || plan === PLANES.duo ? ' y el streaming incluido' : '') +
+          '. Si eso te sirve, escríbenos.</em>' +
+          '<a class="pill" href="' + WA +
+            encodeURIComponent('Hola, quiero saber más sobre el ' + plan.nom + '.') +
+          '">Cuéntame más</a>' +
+        '</div>';
+    }
+    salida.hidden = false;
+  }
+})();
+
+/* ---- Lo que promete el cierre depende de la hora de Colombia: a
+   medianoche no se ofrece una respuesta inmediata que no existe. ---- */
+(function () {
+  var linea = document.querySelector('.contact-line');
+  if (!linea) return;
+
+  var ahora = new Date(Date.now() + (new Date().getTimezoneOffset() - 300) * 60000);
+  var dia = ahora.getDay(), hora = ahora.getHours();
+  var abierto = dia !== 0 && hora >= 8 && hora < 19;   // lunes a sábado, 8 a 19
+
+  if (abierto) {
+    linea.textContent = 'Estamos atendiendo ahora mismo · te respondemos en minutos';
+  } else if (dia === 0) {
+    linea.textContent = 'Hoy es domingo y estamos cerrados · escríbenos y te respondemos mañana a las 8:00 a. m.';
+  } else if (hora < 8) {
+    linea.textContent = 'Aún no abrimos · escríbenos y te respondemos hoy a las 8:00 a. m.';
+  } else {
+    linea.textContent = 'Ya cerramos por hoy · escríbenos y te respondemos mañana a las 8:00 a. m.';
+  }
+})();
+
+/* ---- Barra de accion en celular: aparece cuando el hero ya pasó.
+   Con IntersectionObserver y no con un listener de scroll: no mide
+   posiciones en cada frame, que era lo que trababa el scroll. ---- */
+(function () {
+  var barra = document.getElementById('barra-movil');
+  var hero = document.querySelector('.hero');
+  if (!barra || !hero) return;
+
+  if (!('IntersectionObserver' in window)) { barra.classList.add('se-ve'); return; }
+
+  var heroFuera = false, cierreALaVista = false;
+  function repintar() { barra.classList.toggle('se-ve', heroFuera && !cierreALaVista); }
+
+  new IntersectionObserver(function (e) {
+    heroFuera = !e[0].isIntersecting && e[0].boundingClientRect.top < 0;
+    repintar();
+  }, { threshold: 0, rootMargin: '-40px 0px 0px 0px' }).observe(hero);
+
+  // cuando ya se ve el boton del cierre, la barra sobra: se retira sola
+  var cierre = document.querySelector('.cierre');
+  if (cierre) {
+    new IntersectionObserver(function (e) {
+      cierreALaVista = e[0].isIntersecting;
+      repintar();
+    }, { threshold: 0.25 }).observe(cierre);
+  }
+})();
+
+/* ---- Nada se anima fuera de pantalla: ni las manchas de luz del
+   vidrio ni la cinta. Es lo que mantiene el scroll suelto. ---- */
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  var obs = new IntersectionObserver(function (entradas) {
+    entradas.forEach(function (e) {
+      // solo se pausa lo que ya salio de pantalla; al cargar, la torre
+      // esta a la vista y arranca sola
+      e.target.classList.toggle('quieta', !e.isIntersecting);
+    });
+  }, { threshold: 0, rootMargin: '200px' });
+
+  ['.torre', '.ticker'].forEach(function (sel) {
+    var el = document.querySelector(sel);
+    if (el) obs.observe(el);
+  });
+})();
+
+/* ---- Carrusel de promociones: mueve el scroll una tarjeta por clic
+   y apaga la flecha cuando ya no hay hacia donde ir. ---- */
+(function () {
+  var pista = document.getElementById('pista-planes');
+  if (!pista) return;
+  var flechas = document.querySelectorAll('.flecha');
+  if (!flechas.length) return;
+
+  function anchoPaso() {
+    var t = pista.querySelector('.plan');
+    if (!t) return pista.clientWidth;
+    var hueco = parseFloat(getComputedStyle(pista).columnGap) || 0;
+    return t.getBoundingClientRect().width + hueco;
+  }
+
+  function repasar() {
+    var max = pista.scrollWidth - pista.clientWidth;
+    var x = pista.scrollLeft;
+    Array.prototype.forEach.call(flechas, function (b) {
+      var atras = b.dataset.paso === '-1';
+      b.disabled = atras ? x < 4 : x >= max - 4;
+    });
+  }
+
+  Array.prototype.forEach.call(flechas, function (b) {
+    b.addEventListener('click', function () {
+      pista.scrollBy({ left: anchoPaso() * parseInt(b.dataset.paso, 10), behavior: 'smooth' });
+    });
+  });
+
+  pista.addEventListener('scroll', function () {
+    window.clearTimeout(pista._t);
+    pista._t = window.setTimeout(repasar, 90);
+  });
+  window.addEventListener('resize', repasar);
+  repasar();
+})();
+
+(function () {
+  // Sin scroll real (vista de diseño completa) no se oculta nada.
+  var hayScroll = document.documentElement.scrollHeight > window.innerHeight + 140;
+  var quieto = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!hayScroll || quieto || !('IntersectionObserver' in window)) return;
+
+  // Marca que el JS se hace cargo: habilita los estados iniciales que,
+  // sin el, dejarian cosas invisibles (la curva del ahorro).
+  var pagina = document.querySelector('.page');
+  if (pagina) pagina.classList.add('js-anim');
+
+  // [selector, retraso entre hermanos, clase extra]
+  var grupos = [
+    ['#titular .ln', 95, 'rv-ln'],
+    ['.hero-sub, .hero-cta', 110, ''],
+    /* la torre NO entra aqui a proposito: debe verse y moverse desde
+       que carga la pagina, sin esperar a que alguien haga scroll */
+    ['.sec-head', 0, ''],
+    ['.plan', 130, 'rv-3d'],
+    ['.graf-bloque', 150, ''],
+    ['.veredicto .ln', 110, 'rv-ln'],
+    ['.bene', 70, ''],
+    ['.cierre-caja .ln', 110, 'rv-ln'],
+    ['.cierre-datos', 0, ''],
+    ['.legal', 0, '']
+  ];
+
+  var obs = new IntersectionObserver(function (entradas) {
+    entradas.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('rv-on');
+      obs.unobserve(e.target);
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  grupos.forEach(function (g) {
+    Array.prototype.forEach.call(document.querySelectorAll(g[0]), function (el, i) {
+      el.classList.add('rv');
+      if (g[2]) el.classList.add(g[2]);
+      if (g[1]) el.style.transitionDelay = (i * g[1]) + 'ms';
+      obs.observe(el);
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

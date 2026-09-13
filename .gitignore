@@ -1,0 +1,19 @@
+# Material interno de Tigo: no va a un repositorio publico.
+# El PDF lleva aviso de uso restringido al personal vinculado y a proveedores.
+*.pdf
+
+# Piezas con fotos y nombres de personas del equipo de Entrenamiento
+landing-full-tigo/Equipo.dc.html
+landing-full-tigo/full-tigo-oferta-septiembre.html
+landing-full-tigo/canvas.json
+landing-full-tigo/Main.dc.html
+landing-full-tigo/Movil.dc.html
+
+# Fotos originales sin optimizar (las publicadas viven en landing-full-tigo/)
+/t-*.jpg
+/t-*.png
+
+# Basura del sistema
+Thumbs.db
+desktop.ini
+.DS_Store
